@@ -20,6 +20,13 @@ namespace Reiterus\ElasticWrap\Contract;
 interface InfoInterface
 {
     /**
+     * Get cluster short stats: indices, documents, bytes
+     *
+     * @return array[]
+     */
+    public function getStats(): array;
+
+    /**
      * Getting indexes with the most important characteristics.
      *
      * @param array $list
