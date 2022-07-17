@@ -2,6 +2,14 @@
 
 Work with Elasticsearch: getting information and important operations.
 
+### Info methods
+
+getStats, getIndices, getAliases, getCountDocs, getEmptyIndices
+
+### Action methods
+
+deleteEmptyIndices, getAllDocs, getChunkDocs, getFirstDoc, getLastDoc
+
 # Using
 
 The package is very easy to use.
@@ -18,10 +26,22 @@ $client = ClientBuilder::create()
 $info = new ElasticInfo($client);
 $action = new ElasticAction($client);
 
+$stats = $info->getStats();
+/*
+[total] => Array
+  (
+    [indices] => 15
+    [documents] => 686
+    [bytes] => 978811
+  )
+*/
+
 $indices = $info->getIndices();
 $aliases = $info->getAliases(true);
-$countDocs = $info->getCountDocs('some_index_name');
 $empty = $info->getEmptyIndices();
+
+$lastDoc = $action->getLastDoc('some_index_name')
+$chunkDocs = $action->getChunkDocs('some_index_name', 10, '_id', 'desc');
 
 // return the number of empty indexes removed
 $deleted = $action->deleteEmptyIndices($empty);

@@ -46,5 +46,108 @@ class Action extends AbstractElastic implements ActionInterface
 
         return $result;
     }
+
+    /**
+     * Get all index documents.
+     * Warning! Only use this for small indexes!
+     *
+     * @param string $name
+     *
+     * @return array
+     */
+    public function getAllDocs(string $name): array
+    {
+        $params = [
+            'index' => $name,
+            'body' => [
+                'query' => [
+                    'match_all' => (object)[],
+                ],
+            ],
+        ];
+
+        return $this->client->search($params);
+    }
+
+    /**
+     * Get some chunk index documents.
+     *
+     * @param string $name
+     * @param int $size
+     * @param string $sort
+     * @param string $direct
+     *
+     * @return array
+     */
+    public function getChunkDocs(
+        string $name,
+        int    $size = 10,
+        string $sort = '_id',
+        string $direct = 'desc'
+    ): array
+    {
+        $params = [
+            'index' => $name,
+            'body' => [
+                'query' => [
+                    'match_all' => (object)[],
+                ],
+                'size' => $size,
+                'sort' => [
+                    $sort => $direct,
+                ],
+            ],
+        ];
+
+        return $this->client->search($params);
+    }
+
+    /**
+     * Get first index document
+     *
+     * @param string $name
+     *
+     * @return array
+     */
+    public function getFirstDoc(string $name): array
+    {
+        $params = [
+            'index' => $name,
+            'body' => [
+                'query' => [
+                    'match_all' => (object)[],
+                ],
+                'size' => 1,
+            ],
+        ];
+
+        return $this->client->search($params);
+    }
+
+    /**
+     * Get last index document
+     *
+     * @param string $name
+     * @param string $sort
+     *
+     * @return array
+     */
+    public function getLastDoc(string $name, string $sort = '_id'): array
+    {
+        $params = [
+            'index' => $name,
+            'body' => [
+                'query' => [
+                    'match_all' => (object)[],
+                ],
+                'sort' => [
+                    $sort => 'desc',
+                ],
+                'size' => 1,
+            ],
+        ];
+
+        return $this->client->search($params);
+    }
 }
 

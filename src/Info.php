@@ -22,6 +22,24 @@ use Reiterus\ElasticWrap\Contract\InfoInterface;
 class Info extends AbstractElastic implements InfoInterface
 {
     /**
+     * Get cluster short stats: indices, documents, bytes
+     *
+     * @return array[]
+     */
+    public function getStats(): array
+    {
+        $stats = $this->client()->indices()->stats();
+
+        return [
+            'total' => [
+                'indices' => $stats['_shards']['successful'],
+                'documents' => $stats['_all']['primaries']['docs']['count'],
+                'bytes' => $stats['_all']['primaries']['store']['size_in_bytes'],
+            ],
+        ];
+    }
+
+    /**
      * Getting indexes with the most important characteristics.
      * Default: index, health, status, docs.count, store.size
      *
