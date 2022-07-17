@@ -6,9 +6,13 @@ Work with Elasticsearch: getting information and important operations.
 
 getStats, getIndices, getAliases, getCountDocs, getEmptyIndices
 
+### Data methods
+
+getAllDocs, getChunkDocs, getFirstDoc, getLastDoc
+
 ### Action methods
 
-deleteEmptyIndices, getAllDocs, getChunkDocs, getFirstDoc, getLastDoc
+deleteEmptyIndices
 
 # Using
 
@@ -18,6 +22,7 @@ The package is very easy to use.
 use Elasticsearch\ClientBuilder;
 use Reiterus\ElasticWrap\Info as ElasticInfo;
 use Reiterus\ElasticWrap\Action as ElasticAction;
+use Reiterus\ElasticWrap\Data as ElasticData;
 
 $client = ClientBuilder::create()
     ->setHosts(['localhost:9200'])
@@ -25,6 +30,7 @@ $client = ClientBuilder::create()
 
 $info = new ElasticInfo($client);
 $action = new ElasticAction($client);
+$data = new ElasticData($client);
 
 $stats = $info->getStats();
 /*
@@ -40,8 +46,8 @@ $indices = $info->getIndices();
 $aliases = $info->getAliases(true);
 $empty = $info->getEmptyIndices();
 
-$lastDoc = $action->getLastDoc('some_index_name')
-$chunkDocs = $action->getChunkDocs('some_index_name', 10, '_id', 'desc');
+$lastDoc = $data->getLastDoc('some_index_name')
+$chunkDocs = $data->getChunkDocs('some_index_name', 10, '_id', 'desc');
 
 // return the number of empty indexes removed
 $deleted = $action->deleteEmptyIndices($empty);
