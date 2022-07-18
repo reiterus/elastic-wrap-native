@@ -24,6 +24,7 @@ abstract class AbstractElastic
     protected Client $client;
 
     /**
+     * @codeCoverageIgnore
      * @param Client $client
      */
     public function __construct(

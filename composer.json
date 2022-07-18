@@ -4,7 +4,7 @@
  "keywords": ["elasticsearch", "elastic", "index", "php", "reiterus"],
  "type": "library",
  "license": "MIT",
- "version": "2.0.0",
+ "version": "3.0.0",
  "minimum-stability": "dev",
  "authors": [
   {
@@ -17,8 +17,16 @@
    "Reiterus\\ElasticWrap\\": "src/"
   }
  },
+ "autoload-dev": {
+  "psr-4": {
+   "Reiterus\\ElasticWrap\\Tests\\": "tests"
+  }
+ },
  "require": {
   "php": "^7.4",
   "elasticsearch/elasticsearch": "^7.13"
+ },
+ "require-dev": {
+  "phpunit/phpunit": "^9.5"
  }
 }
