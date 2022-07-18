@@ -28,7 +28,7 @@ class Info extends AbstractElastic implements InfoInterface
      */
     public function getStats(): array
     {
-        $stats = $this->client()->indices()->stats();
+        $stats = $this->client->indices()->stats();
 
         return [
             'total' => [
@@ -64,6 +64,7 @@ class Info extends AbstractElastic implements InfoInterface
     }
 
     /**
+     * @codeCoverageIgnore
      * Get index aliases with them (true) or without them (false)
      *
      * @param bool $advanced
@@ -101,7 +102,9 @@ class Info extends AbstractElastic implements InfoInterface
                 continue;
             }
 
+            // @codeCoverageIgnoreStart
             $result[] = $index['index'];
+            // @codeCoverageIgnoreEnd
         }
 
         return $result;

@@ -2,6 +2,10 @@
 
 Work with Elasticsearch: getting information and important operations.
 
+![Coverage](coverage.png)
+
+See more in the [#Tests](#Tests) section.
+
 ### Info methods
 
 getStats, getIndices, getAliases, getCountDocs, getEmptyIndices
@@ -96,6 +100,19 @@ From GitHub repository
  ]
 }
 ```
+
+# Tests
+
+To run tests with visual code coverage, launch the command as follows:
+
+```shell
+XDEBUG_MODE=coverage ./vendor/phpunit/phpunit/phpunit \
+--configuration phpunit.xml \
+--testsuite default \
+--coverage-html coverage/
+```
+
+Test results will be saved in the `coverage` directory.
 
 # License
 
